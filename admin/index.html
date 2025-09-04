@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Learning Hub — Tika • Nio • Niki</title>
+<meta name="theme-color" content="#0b1020" />
+<style>
+  :root{
+    --bg:#0b1020; --panel:#0f1630; --ink:#e8eeff; --muted:#a9b5d7; --line:#1b2442;
+    --accent:#7aa2ff; --accent2:#78e3c0; --accent3:#f6c76f; --danger:#ff8b8b;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  a{color:var(--accent)}
+  header.nav{position:sticky;top:0;z-index:5;background:rgba(11,16,32,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .wrap{max-width:1100px;margin:auto;padding:16px}
+  .navgrid{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .brand{font-weight:700;margin-right:auto}
+  .tab{padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:#0c132a;cursor:pointer}
+  .tab.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(122,162,255,.15) inset}
+  main{padding:16px}
+  .grid{display:grid;gap:14px}
+  @media(min-width:900px){ .grid.cols-2{grid-template-columns:1.2fr .8fr} .grid.cols-3{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  h1,h2{margin:.2rem 0 .6rem}
+  h3{margin:.2rem 0 .4rem}
+  .muted{color:var(--muted)}
+  .bar{height:10px;background:#0c132a;border-radius:999px;overflow:hidden}
+  .fill{height:100%;width:0%;background:var(--accent);transition:width .3s}
+  ul.tasks{list-style:none;margin:8px 0 0;padding:0}
+  ul.tasks li{display:flex;gap:8px;align-items:center;background:#0c132a;border:1px solid var(--line);padding:10px 12px;border-radius:10px;margin:8px 0}
+  textarea,input[type=text]{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0b1228;color:#f3f6ff}
+  button{background:var(--accent);color:#07102a;border:none;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}
+  button.ghost{background:#0c132a;color:#f3f6ff;border:1px solid var(--line)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#0c132a;font-size:.9rem}
+  .ok{color:#6ff1c7} .bad{color:#ffb0b0}
+  .kpi{display:flex;gap:16px;flex-wrap:wrap}
+  .kpi .card{flex:1;min-width:220px}
+  .two{display:grid;gap:12px}
+  @media(min-width:720px){ .two{grid-template-columns:1fr 1fr} }
+  .small{font-size:.9rem}
+  .list{display:grid;gap:8px}
+  .row{display:flex;justify-content:space-between;gap:12px}
+  .pill{padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#0c132a}
+  .accent2{background:var(--accent2);color:#05261b}
+  .accent3{background:var(--accent3);color:#302107}
+  .danger{background:var(--danger);color:#300}
+  .footer{opacity:.75;font-size:.9rem;margin-top:24px}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap navgrid">
+    <div class="brand">✨ Learning Hub</div>
+    <button class="tab active" data-target="home">Home</button>
+    <button class="tab" data-target="tika">Tika (Excel)</button>
+    <button class="tab" data-target="nio">Nio (UI/UX)</button>
+    <button class="tab" data-target="niki">Niki (Tech Writing)</button>
+    <button class="tab" data-target="admin">Admin Dashboard</button>
+    <button class="tab" data-target="kabur">Kabur Aja Dulu Plan</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HOME -->
+  <section id="home" class="page">
+    <div class="grid cols-2">
+      <div class="card">
+        <h1>Personalized Learning, Real Progress</h1>
+        <p class="muted">Three mini-hubs to help friends reach their dreams — with checklists, weekly reflections, and an admin dashboard that tracks consistency, velocity, and milestones.</p>
+        <div class="kpi">
+          <div class="card">
+            <h3>Why this works</h3>
+            <ul>
+              <li>🎯 Clear weekly modules</li>
+              <li>✅ Small tasks with evidence</li>
+              <li>📈 Visible progress + streaks</li>
+              <li>🧠 Reflection to build habits</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Tracks</h3>
+            <div class="chips">
+              <span class="chip">Excel Basics</span>
+              <span class="chip">UI/UX Case Study</span>
+              <span class="chip">Technical Writing Docset</span>
+            </div>
+            <p class="small muted" style="margin-top:8px">Everything saves to the browser (localStorage). Later you can plug Supabase/Sheets.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Add this to your portfolio</h2>
+        <ol class="small">
+          <li>Save this file as <code>learning-portfolio.html</code> in your repo.</li>
+          <li>Link it from your navbar: <code>/learning-portfolio.html</code>.</li>
+          <li>(Optional) Split each section into its own page later.</li>
+        </ol>
+        <div class="list" style="margin-top:8px">
+          <div class="row"><span>Demo pages</span><span class="pill">Tika • Nio • Niki • Admin • Kabur</span></div>
+          <div class="row"><span>Storage</span><span class="pill">localStorage (offline)</span></div>
+          <div class="row"><span>Next step</span><span class="pill">Supabase sync</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tika -->
+  <section id="tika" class="page" hidden>
+    <div class="card">
+      <h1>Tika — Excel Basics</h1>
+      <p class="muted">Goal: kuasai fundamental Excel dalam 6 minggu. Capstone: 1-sheet KPI dengan Pivot + Chart.</p>
+      <div class="bar"><div class="fill" id="tikaFill"></div></div>
+      <p class="small">Progress: <b id="tikaPct">0%</b> • Streak: <b id="tikaStreak">0</b> hari • Last: <span id="tikaLast">–</span></p>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h3>Weekly Modules</h3>
+        <ul class="tasks" data-key="tika" data-module="w1">
+          <li><input type="checkbox"> Interface, number formats</li>
+          <li><input type="checkbox"> Freeze panes & navigation</li>
+          <li><input type="checkbox"> Conditional formatting</li>
+        </ul>
+        <ul class="tasks" data-key="tika" data-module="w2">
+          <li><input type="checkbox"> SUM, AVERAGE, MIN/MAX</li>
+          <li><input type="checkbox"> COUNT vs COUNTA</li>
+          <li><input type="checkbox"> Relative vs absolute ($A$1)</li>
+        </ul>
+        <ul class="tasks" data-key="tika" data-module="w3">
+          <li><input type="checkbox"> IF, AND/OR, nested IF</li>
+          <li><input type="checkbox"> Clean practice set</li>
+        </ul>
+        <ul class="tasks" data-key="tika" data-module="w4">
+          <li><input type="checkbox"> VLOOKUP / XLOOKUP</li>
+          <li><input type="checkbox"> INDEX + MATCH (basics)</li>
+        </ul>
+        <ul class="tasks" data-key="tika" data-module="w5">
+          <li><input type="checkbox"> Tables & structured refs</li>
+          <li><input type="checkbox"> PivotTable basics</li>
+        </ul>
+        <ul class="tasks" data-key="tika" data-module="w6">
+          <li><input type="checkbox"> Bar/Line charts</li>
+          <li><input type="checkbox"> Text to Columns / TRIM</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Weekly Check-in</h3>
+        <form class="checkin" data-key="tika">
+          <label class="small">Went well<br><textarea name="well"></textarea></label><br>
+          <label class="small">Blockers<br><textarea name="blockers"></textarea></label><br>
+          <label class="small">Next step<br><input name="next" type="text"/></label><br>
+          <button type="submit">Save Check-in</button>
+          <button type="button" class="ghost export" data-key="tika" style="margin-left:8px">Export JSON</button>
+        </form>
+        <div class="feed" id="tikaFeed"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nio -->
+  <section id="nio" class="page" hidden>
+    <div class="card">
+      <h1>Nio — UI/UX</h1>
+      <p class="muted">Goal: 5–7 screen prototype + 1 polished case study.</p>
+      <div class="bar"><div class="fill" id="nioFill" style="background:var(--accent2)"></div></div>
+      <p class="small">Progress: <b id="nioPct">0%</b> • Streak: <b id="nioStreak">0</b> hari • Last: <span id="nioLast">–</span></p>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h3>Weekly Modules</h3>
+        <ul class="tasks" data-key="nio" data-module="w1">
+          <li><input type="checkbox"> UX vs UI, heuristics</li>
+          <li><input type="checkbox"> Teardown good/bad UI</li>
+        </ul>
+        <ul class="tasks" data-key="nio" data-module="w2">
+          <li><input type="checkbox"> 5 user interviews</li>
+          <li><input type="checkbox"> Insights summary</li>
+        </ul>
+        <ul class="tasks" data-key="nio" data-module="w3">
+          <li><input type="checkbox"> Sitemap & flows</li>
+          <li><input type="checkbox"> Edge cases list</li>
+        </ul>
+        <ul class="tasks" data-key="nio" data-module="w4">
+          <li><input type="checkbox"> Low-fi wireframes (mobile)</li>
+        </ul>
+        <ul class="tasks" data-key="nio" data-module="w5">
+          <li><input type="checkbox"> Type scale & color tokens</li>
+          <li><input type="checkbox"> Components & variants</li>
+        </ul>
+        <ul class="tasks" data-key="nio" data-module="w6">
+          <li><input type="checkbox"> Usability test x3</li>
+          <li><input type="checkbox"> Iteration notes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Weekly Check-in</h3>
+        <form class="checkin" data-key="nio">
+          <label class="small">Went well<br><textarea name="well"></textarea></label><br>
+          <label class="small">Blockers<br><textarea name="blockers"></textarea></label><br>
+          <label class="small">Next step<br><input name="next" type="text"/></label><br>
+          <button type="submit">Save Check-in</button>
+          <button type="button" class="ghost export" data-key="nio" style="margin-left:8px">Export JSON</button>
+        </form>
+        <div class="feed" id="nioFeed"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Niki -->
+  <section id="niki" class="page" hidden>
+    <div class="card">
+      <h1>Niki — Technical Writing</h1>
+      <p class="muted">Goal: mini doc set — Overview + 2 Procedures + 1 Reference.</p>
+      <div class="bar"><div class="fill" id="nikiFill" style="background:var(--accent3)"></div></div>
+      <p class="small">Progress: <b id="nikiPct">0%</b> • Streak: <b id="nikiStreak">0</b> hari • Last: <span id="nikiLast">–</span></p>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h3>Weekly Modules</h3>
+        <ul class="tasks" data-key="niki" data-module="w1">
+          <li><input type="checkbox"> Choose style guide & audience</li>
+          <li><input type="checkbox"> Voice & tone sample</li>
+        </ul>
+        <ul class="tasks" data-key="niki" data-module="w2">
+          <li><input type="checkbox"> Information architecture draft</li>
+          <li><input type="checkbox"> Navigation/heading plan</li>
+        </ul>
+        <ul class="tasks" data-key="niki" data-module="w3">
+          <li><input type="checkbox"> Procedure 1 with screenshots</li>
+          <li><input type="checkbox"> Procedure 2 with screenshots</li>
+        </ul>
+        <ul class="tasks" data-key="niki" data-module="w4">
+          <li><input type="checkbox"> Concept/overview doc</li>
+        </ul>
+        <ul class="tasks" data-key="niki" data-module="w5">
+          <li><input type="checkbox"> Reference: parameters/tables</li>
+          <li><input type="checkbox"> Examples & versioning</li>
+        </ul>
+        <ul class="tasks" data-key="niki" data-module="w6">
+          <li><input type="checkbox"> Peer review checklist</li>
+          <li><input type="checkbox"> Grammar pass</li>
+          <li><input type="checkbox"> Doc usability test</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Weekly Check-in</h3>
+        <form class="checkin" data-key="niki">
+          <label class="small">Went well<br><textarea name="well"></textarea></label><br>
+          <label class="small">Blockers<br><textarea name="blockers"></textarea></label><br>
+          <label class="small">Next step<br><input name="next" type="text"/></label><br>
+          <button type="submit">Save Check-in</button>
+          <button type="button" class="ghost export" data-key="niki" style="margin-left:8px">Export JSON</button>
+        </form>
+        <div class="feed" id="nikiFeed"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin" class="page" hidden>
+    <div class="card">
+      <h1>Admin Preview Dashboard</h1>
+      <p class="muted small">Lightweight glance of progress, streaks, and last activity. Data source: localStorage per user.</p>
+    </div>
+
+    <div class="grid cols-3">
+      <div class="card"><h3>Tika</h3><div class="bar"><div class="fill" id="a_tika"></div></div>
+        <p class="small">Progress <b id="ap_tika">0%</b> • Streak <b id="as_tika">0</b> • Last <span id="al_tika">–</span></p>
+        <div class="list small"><div class="row"><span>Velocity (7d)</span><span class="pill" id="av_tika">0 tasks</span></div></div>
+      </div>
+      <div class="card"><h3>Nio</h3><div class="bar"><div class="fill" id="a_nio" style="background:var(--accent2)"></div></div>
+        <p class="small">Progress <b id="ap_nio">0%</b> • Streak <b id="as_nio">0</b> • Last <span id="al_nio">–</span></p>
+        <div class="list small"><div class="row"><span>Velocity (7d)</span><span class="pill" id="av_nio">0 tasks</span></div></div>
+      </div>
+      <div class="card"><h3>Niki</h3><div class="bar"><div class="fill" id="a_niki" style="background:var(--accent3)"></div></div>
+        <p class="small">Progress <b id="ap_niki">0%</b> • Streak <b id="as_niki">0</b> • Last <span id="al_niki">–</span></p>
+        <div class="list small"><div class="row"><span>Velocity (7d)</span><span class="pill" id="av_niki">0 tasks</span></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Export All</h3>
+      <p class="small muted">Download JSON per user (tasks + check-ins) to archive or import to Supabase later.</p>
+      <div class="chips">
+        <button class="ghost export" data-key="tika">Export Tika</button>
+        <button class="ghost export" data-key="nio">Export Nio</button>
+        <button class="ghost export" data-key="niki">Export Niki</button>
+      </div>
+    </div>
+    <p class="footer">KPIs: Consistency (≥4 streak days/week) • Velocity (≥6 tasks/week) • Milestones (capstone) • Quality (peer review) • Portfolio (≥1 artifact/week)</p>
+  </section>
+
+  <!-- KABUR -->
+  <section id="kabur" class="page" hidden>
+    <div class="card">
+      <h1>“Kabur Aja Dulu” Plan — Study/Work Abroad</h1>
+      <p class="muted">Checklist pintar buat yang mau lanjut kuliah (GRE/GMAT/IELTS/TOEFL, SOP/LOR, funding) atau kerja (skill & portfolio). Simpan progressnya biar konsisten.</p>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <h3>Planner</h3>
+        <div class="two">
+          <label class="small">Path<br>
+            <select id="k_path" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0b1228;color:#f3f6ff">
+              <option value="masters">Masters</option>
+              <option value="job">Job</option>
+              <option value="phd">PhD</option>
+            </select>
+          </label>
+          <label class="small">Target Country<br>
+            <input id="k_country" type="text" placeholder="e.g., Singapore, UK, Germany" />
+          </label>
+        </div>
+        <label class="small" style="margin-top:8px">Intended Field / Role<br>
+          <input id="k_field" type="text" placeholder="e.g., HCI, Data, DevRel, Product Design" />
+        </label>
+        <div class="chips" style="margin-top:10px">
+          <button class="ghost" id="k_generate">Generate Recommended Checklist</button>
+          <button class="ghost" id="k_clear">Clear</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Recommended Exams & Documents</h3>
+        <div id="k_reco" class="list small muted">Set your path/country to see suggestions.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Your Checklist</h3>
+      <p class="small muted">Centang tugas di bawah. Progress tersimpan otomatis di browser.</p>
+      <ul class="tasks" data-key="kabur" data-module="plan">
+        <li><input type="checkbox"> Research 5 target programs/companies</li>
+        <li><input type="checkbox"> Build/refresh CV & portfolio</li>
+        <li><input type="checkbox"> Book exam date (IELTS/TOEFL/GRE/GMAT)</li>
+        <li><input type="checkbox"> Draft Statement of Purpose / Motivation Letter</li>
+        <li><input type="checkbox"> Secure 2–3 Letters of Recommendation</li>
+        <li><input type="checkbox"> Budget plan & scholarship shortlist</li>
+        <li><input type="checkbox"> Timeline: milestones by month</li>
+      </ul>
+      <div class="row small"><span>Progress</span><span class="pill" id="kaburPct">0%</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Study/Work Prep Cheatsheet</h3>
+      <div class="two">
+        <div>
+          <h4>Masters (coursework / research)</h4>
+          <ul class="small">
+            <li>Exams: <b>IELTS/TOEFL</b>; sometimes <b>GRE</b> (US-heavy), <b>GMAT</b> (business)</li>
+            <li>Docs: <b>SOP</b>, <b>LOR 2–3</b>, CV, transcript, portfolio (UI/UX/CS)</li>
+            <li>Funding: scholarships, RA/TA, tuition grants</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Job (tech/design/writing)</h4>
+          <ul class="small">
+            <li>Core skills: Data/Excel, SQL/Python, UI/UX case study, Docs portfolio</li>
+            <li>Proof: GitHub, Behance/Dribbble, writing site, recommendations</li>
+            <li>Process: referrals, tailored CV, mock interviews, visas</li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer">Tip: build a “brag doc” bulanan untuk track impact, bukan hanya tugas.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ======= Utility for person pages ======= */
+function keyTasks(user){ return JSON.parse(localStorage.getItem(user+"_tasks") || "{}"); }
+function saveTasks(user, obj){ localStorage.setItem(user+"_tasks", JSON.stringify(obj)); }
+function datesKey(user){ return user+"_dates"; }
+function lastKey(user){ return user+"_last"; }
+function feedKey(user){ return user+"_feed"; }
+
+function bumpActivity(user){
+  const today = new Date().toDateString();
+  const d = new Set(JSON.parse(localStorage.getItem(datesKey(user)) || "[]"));
+  if(!d.has(today)){ d.add(today); localStorage.setItem(datesKey(user), JSON.stringify([...d])); }
+  localStorage.setItem(lastKey(user), new Date().toISOString());
+}
+function calcStreak(user){
+  const d = new Set(JSON.parse(localStorage.getItem(datesKey(user)) || "[]"));
+  let s=0; const t=new Date();
+  for(;; t.setDate(t.getDate()-1)){ const tag=t.toDateString(); if(d.has(tag)) s++; else break; }
+  return s;
+}
+function velocity7(user){
+  const last = localStorage.getItem(lastKey(user));
+  if(!last) return 0;
+  const diff = (Date.now() - new Date(last).getTime()) / 86400000;
+  return diff <= 7 ? 1 : 0;
+}
+function percentDoneFor(user){
+  const boxes = document.querySelectorAll(`ul.tasks[data-key="${user}"] input[type=checkbox]`);
+  if(!boxes.length) return 0;
+  const done = [...boxes].filter(b=>b.checked).length;
+  return Math.round((done / boxes.length) * 100);
+}
+function renderPerson(user){
+  const pct = percentDoneFor(user);
+  const fill = document.getElementById(user+"Fill");
+  const pctEl = document.getElementById(user+"Pct");
+  const streakEl = document.getElementById(user+"Streak");
+  const lastEl = document.getElementById(user+"Last");
+  if(fill){ fill.style.width = pct+"%"; }
+  if(pctEl){ pctEl.textContent = pct+"%"; }
+  if(streakEl){ streakEl.textContent = calcStreak(user); }
+  if(lastEl){ const last = localStorage.getItem(lastKey(user)); lastEl.textContent = last ? new Date(last).toLocaleString() : "–"; }
+}
+function wireTasks(user){
+  const saved = keyTasks(user);
+  document.querySelectorAll(`ul.tasks[data-key="${user}"]`).forEach(list=>{
+    const mod = list.dataset.module;
+    [...list.querySelectorAll('input[type=checkbox]')].forEach((box,i)=>{
+      const id = `${mod}:${i}`;
+      box.checked = !!saved[id];
+      box.addEventListener('change',()=>{
+        const s = keyTasks(user);
+        s[id] = box.checked;
+        saveTasks(user,s);
+        bumpActivity(user);
+        renderPerson(user);
+        renderAdmin();
+        if(user==="kabur"){ document.getElementById("kaburPct").textContent = percentDoneFor("kabur")+"%"; }
+      });
+    });
+  });
+}
+function wireCheckins(user){
+  const form = document.querySelector(`form.checkin[data-key="${user}"]`);
+  const feed = document.getElementById(user+"Feed");
+  const arr = JSON.parse(localStorage.getItem(feedKey(user)) || "[]");
+  const paint = ()=> feed && (feed.innerHTML = arr.map(c=>`<article class="card small"><b>${new Date(c.t).toLocaleString()}</b><p>${c.well}</p><p>${c.blockers}</p><p><i>${c.next}</i></p></article>`).join(""));
+  paint();
+  if(form){
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const fd = new FormData(form);
+      const entry = { t: Date.now(), well: fd.get("well")||"", blockers: fd.get("blockers")||"", next: fd.get("next")||"" };
+      arr.unshift(entry);
+      localStorage.setItem(feedKey(user), JSON.stringify(arr));
+      bumpActivity(user); renderPerson(user); renderAdmin(); paint(); form.reset();
+    });
+  }
+}
+function exportUser(user){
+  const data = {
+    tasks: JSON.parse(localStorage.getItem(user+"_tasks") || "{}"),
+    dates: JSON.parse(localStorage.getItem(user+"_dates") || "[]"),
+    last: localStorage.getItem(user+"_last") || null,
+    checkins: JSON.parse(localStorage.getItem(user+"_feed") || "[]"),
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${user}-learning-export.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ======= Admin ======= */
+function renderAdmin(){
+  ["tika","nio","niki"].forEach(u=>{
+    const pct = percentDoneFor(u);
+    const streak = calcStreak(u);
+    const last = localStorage.getItem(lastKey(u));
+    const vel = velocity7(u);
+    const fill = document.getElementById("a_"+u);
+    const pctEl = document.getElementById("ap_"+u);
+    const streakEl = document.getElementById("as_"+u);
+    const lastEl = document.getElementById("al_"+u);
+    const velEl = document.getElementById("av_"+u);
+    if(fill) fill.style.width = pct+"%";
+    if(pctEl) pctEl.textContent = pct+"%";
+    if(streakEl) streakEl.textContent = streak;
+    if(lastEl) lastEl.textContent = last ? new Date(last).toLocaleString() : "–";
+    if(velEl) velEl.textContent = vel + " tasks";
+  });
+}
+
+/* ======= Kabur generator ======= */
+function kaburSuggest(path,country,field){
+  const c = (country||"").toLowerCase();
+  const items = [];
+  const lang = ["uk","usa","canada","australia","ireland","singapore"];
+  const needsEnglish = lang.some(w=>c.includes(w)) || c==="";
+  if(path==="masters"||path==="phd"){
+    if(needsEnglish) items.push("IELTS Academic or TOEFL iBT");
+    if(path==="masters"){
+      if(/business|mba|management|finance|marketing/i.test(field||"")) items.push("GMAT (for MBA/business programs)");
+      else items.push("GRE (some US/SG programs; check if optional)");
+    } else { items.push("GRE (quantitative-heavy)"); }
+    items.push("Statement of Purpose (SOP) / Motivation Letter");
+    items.push("2–3 Letters of Recommendation");
+    items.push("CV/Resume + portfolio (if applicable)");
+    items.push("Scholarship shortlist + budget plan");
+  } else {
+    if(needsEnglish) items.push("IELTS General/Academic or TOEFL (if employer asks)");
+    items.push("Role-specific portfolio (GitHub / Behance / Docs site)");
+    items.push("Tailored CV + LinkedIn refresh");
+    items.push("Interview prep + referral targets");
+    items.push("Visa pathway research");
+  }
+  return items;
+}
+
+/* ======= Router / Tabs ======= */
+const pages = [...document.querySelectorAll('.page')];
+const tabs = [...document.querySelectorAll('.tab')];
+function show(page){
+  pages.forEach(p=>p.hidden = p.id!==page);
+  tabs.forEach(t=>t.classList.toggle('active', t.dataset.target===page));
+  if(page==="admin") renderAdmin();
+}
+tabs.forEach(t=>t.addEventListener('click',()=>show(t.dataset.target)));
+window.addEventListener('hashchange', ()=> show(location.hash.replace('#','') || 'home'));
+show(location.hash.replace('#','') || 'home');
+
+/* Wire persons */
+["tika","nio","niki","kabur"].forEach(u=>{ wireTasks(u); wireCheckins(u); renderPerson(u); });
+document.getElementById("kaburPct").textContent = percentDoneFor("kabur")+"%";
+
+/* Export buttons */
+document.querySelectorAll('.export').forEach(b=> b.addEventListener('click', ()=> exportUser(b.dataset.key)));
+
+/* Kabur generator */
+const kPath = document.getElementById('k_path');
+const kCountry = document.getElementById('k_country');
+const kField = document.getElementById('k_field');
+const kReco = document.getElementById('k_reco');
+document.getElementById('k_generate').addEventListener('click', ()=>{
+  const list = kaburSuggest(kPath.value, kCountry.value, kField.value);
+  kReco.innerHTML = list.map(x=>`<div>• ${x}</div>`).join("");
+});
+document.getElementById('k_clear').addEventListener('click', ()=>{
+  kCountry.value=""; kField.value=""; kReco.textContent="Set your path/country to see suggestions.";
+});
+</script>
+</body>
+</html>
