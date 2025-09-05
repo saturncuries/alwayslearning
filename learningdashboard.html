@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📚 Personalized Learning Dashboard</title>
+<style>
+  body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:#FFF9F5;color:#1E2130}
+  header{padding:20px;background:#C43C6D;color:#fff}
+  h1{margin:0}
+  main{max-width:900px;margin:auto;padding:24px;display:grid;gap:20px}
+  .card{background:#fff;border:1px solid #EEDDD6;border-radius:14px;padding:16px;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+  .bar{height:10px;background:#FFB39A;border-radius:6px;overflow:hidden}
+  .fill{height:100%;width:60%;background:#F26457}
+  ul{margin:0;padding-left:20px}
+  .muted{color:#6B7280}
+</style>
+</head>
+<body>
+<header>
+  <h1>📚 Personalized Learning Dashboard</h1>
+  <p>“For people who wants to learn, be it undergraduate, master, or specific learning path”</p>
+</header>
+
+<main>
+  <!-- Intro -->
+  <div class="card">
+    <h2>🎯 Why use this?</h2>
+    <p class="muted">Track your weekly learning, see your streaks, and build a portfolio artifact as proof of progress.</p>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="card">
+    <h2>📈 Progress Overview</h2>
+    <div class="bar"><div class="fill"></div></div>
+    <p>60% completed • Streak: 5 days</p>
+  </div>
+
+  <!-- Weekly modules -->
+  <div class="card">
+    <h2>🗂 Weekly Modules</h2>
+    <ul>
+      <li>Week 1: Interface, number formats</li>
+      <li>Week 2: SUM, AVERAGE, MIN/MAX</li>
+      <li>Week 3: IF, AND/OR, nested IF</li>
+      <li>Week 4: VLOOKUP / XLOOKUP</li>
+      <li>Week 5: PivotTable basics</li>
+      <li>Week 6: Charts & clean data</li>
+    </ul>
+  </div>
+
+  <!-- Reflection notes -->
+  <div class="card">
+    <h2>🧠 Reflection Notes</h2>
+    <p class="muted">Example entry:</p>
+    <blockquote>
+      “This week I learned VLOOKUP and realized how much time it saves me. My blocker is still remembering absolute references ($A$1). Next week I’ll practice more.”
+    </blockquote>
+  </div>
+
+  <!-- Export -->
+  <div class="card">
+    <h2>💾 Export & Portfolio</h2>
+    <p>All your tasks and reflections are saved locally. You can export JSON to show as proof of consistency, or paste into LinkedIn as a learning log.</p>
+  </div>
+</main>
+</body>
+</html>
