@@ -4,174 +4,181 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>✨ Template Store — Always Learning</title>
-<meta name="description" content="Tiga template: Learning Dashboard, Productivity Web Kit, dan Migration Planner. Preview + beli via Trakteer.">
-<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Tiga template siap pakai: Learning Dashboard, Productivity Web Kit, dan Migration Planner. Preview & beli via Trakteer.">
 <style>
   :root{
-    --bg:#0b1020; --panel:#0f1630; --line:#1b2442; --ink:#e8eeff; --muted:#a9b5d7;
-    --accent:#7aa2ff; --accent2:#78e3c0; --accent3:#f6c76f; --cta:#0ea5e9;
+    --rose:#C43C6D; --coral:#F26457; --peach:#FFB39A; --sun:#F7D36A; --sage:#7BAE84;
+    --bg:#FFF9F5; --panel:#FFFFFF; --ink:#1E2130; --muted:#6B7280; --line:#EEDDD6;
+    --radius:16px; --shadow:0 12px 30px rgba(196,60,109,.12);
   }
   *{box-sizing:border-box}
-  body{margin:0;background:linear-gradient(180deg,#0b1020 0%,#0d1431 100%);color:var(--ink);
-       font:16px/1.55 Inter,system-ui,Segoe UI,Arial,sans-serif}
-  .wrap{max-width:1100px;margin:auto;padding:24px}
-  header{position:sticky;top:0;z-index:5;background:rgba(11,16,32,.6);backdrop-filter:blur(8px);
-         border-bottom:1px solid var(--line)}
-  .top{display:flex;gap:12px;align-items:center;justify-content:space-between}
-  .brand{display:flex;gap:8px;align-items:center}
-  .badge{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#0c132a;color:var(--muted)}
-  h1{font-size:22px;margin:0}
-  .lead{color:var(--muted);margin:8px 0 0}
-  .grid{display:grid;gap:16px;margin-top:20px}
-  @media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:transform .2s ease, box-shadow .2s ease}
-  .card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+  body{margin:0;background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(244,161,148,.35), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(247,211,106,.25), transparent 55%),
+    var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,Segoe UI,Arial,sans-serif}
+  header{position:sticky;top:0;background:rgba(255,249,245,.8);backdrop-filter:blur(8px);
+         border-bottom:1px solid var(--line);z-index:5}
+  .wrap{max-width:1100px;margin:auto;padding:18px}
+  .hero{display:flex;gap:10px;align-items:center;justify-content:space-between}
+  .hero h1{margin:0;font-size:22px;color:var(--rose)}
+  .badge{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff4f0;color:#9B3A4F}
+  main{padding:18px}
+  .grid{display:grid;gap:18px}
+  @media(min-width:960px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;
+        display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);transition:transform .2s ease}
+  .card:hover{transform:translateY(-2px)}
   .title{display:flex;gap:8px;align-items:center}
-  .title h2{font-size:18px;margin:0}
+  .title h2{margin:0}
+  .pill{padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-size:.85rem}
+  .pill1{background:#FFE7E0;border-color:#F6C5BA;color:#9B3A4F}
+  .pill2{background:#EDF7EF;border-color:#CFE8D4;color:#2C5C3D}
+  .pill3{background:#FFF6D8;border-color:#F1E1A1;color:#6B5200}
   .muted{color:var(--muted)}
-  ul.features{margin:0 0 8px 0;padding-left:20px}
-  ul.features li{margin:4px 0}
-  .shot{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#0c132a;cursor:pointer}
-  .shot img{width:100%;display:block;opacity:.95;transition:opacity .2s ease, transform .2s ease}
-  .shot:hover img{opacity:1;transform:scale(1.01)}
+  ul{margin:0;padding-left:18px}
   .cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
-  .btn{appearance:none;border:none;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
-  .btn.primary{background:var(--cta);color:#001524}
-  .btn.ghost{background:#0c132a;color:var(--ink);border:1px solid var(--line)}
-  .chip{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0c132a;font-size:.85rem;color:var(--muted)}
-  footer{opacity:.75;color:var(--muted);font-size:.9rem;margin-top:20px}
-  /* Lightbox */
-  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;padding:20px}
-  .lightbox.open{display:flex}
-  .lightbox img{max-width:min(1100px,95vw);max-height:85vh;border-radius:12px;border:1px solid #2b335a;background:#0c132a}
-  .lightbox .close{position:absolute;top:16px;right:16px}
-  /* Color accents */
-  .pill1{background:rgba(122,162,255,.12);border-color:#243160}
-  .pill2{background:rgba(120,227,192,.12);border-color:#1f3c35}
-  .pill3{background:rgba(246,199,111,.12);border-color:#514020}
+  .btn{appearance:none;border:none;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center}
+  .btn.primary{background:linear-gradient(180deg,var(--coral),#E65849);color:#fff}
+  .btn.ghost{background:#fff4f0;color:var(--coral);border:1px solid #F6C5BA}
+  .shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .shot .bar{height:26px;background:#FFF2EE;border-bottom:1px solid #F6C5BA;display:flex;gap:8px;align-items:center;padding:0 10px;color:#A55A51;font-size:12px}
+  .shot .bar i{width:10px;height:10px;border-radius:50%}
+  .shot .bar i:nth-child(1){background:#f87171}.shot .bar i:nth-child(2){background:#fbbf24}.shot .bar i:nth-child(3){background:#34d399}
+  .shot img{display:block;width:100%}
+  footer{color:var(--muted);font-size:.9rem;margin-top:20px}
+  details{border-top:1px solid var(--line);padding:8px 0}
+  details:first-of-type{border-top:none}
+  details summary{cursor:pointer}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap top">
-    <div class="brand">
-      <span>✨</span>
-      <div>
-        <h1>Template Store — Always Learning</h1>
-        <p class="lead">Tiga template: Learning Dashboard, Productivity Web Kit, dan Migration Planner.</p>
-      </div>
-    </div>
-    <span class="badge">Preview</span>
+  <div class="wrap hero">
+    <h1>✨ Template Store — Always Learning</h1>
+    <span class="badge">Preview • 100% browser</span>
   </div>
 </header>
 
 <main class="wrap">
   <div class="grid">
 
-    <!-- Card 1 -->
+    <!-- CARD 1: Learning -->
     <article class="card">
       <div class="title">
         <h2>📚 Personalized Learning Dashboard</h2>
-        <span class="chip pill1">Student / Fresh Grad</span>
+        <span class="pill pill1">Student / Fresh Grad</span>
       </div>
-      <p class="muted">For people who want to learn — undergraduate, master, atau spesifik learning path.</p>
-      <ul class="features">
+      <p class="muted">“For people who wants to learn, be it undergraduate, master, or specific learning path.”</p>
+
+      <div class="shot">
+        <div class="bar"><i></i><i></i><i></i><span>learningdashboard.html</span></div>
+        <img src="assets/preview-learning.png" alt="Preview Learning Dashboard">
+      </div>
+
+      <h3 style="margin:6px 0 0">What’s inside</h3>
+      <ul>
         <li>✅ Weekly module checklist</li>
         <li>✅ Progress bar + streak counter</li>
         <li>✅ Reflection notes</li>
         <li>✅ Export JSON untuk portfolio</li>
-        <li>✅ Mini “dashboard LinkedIn” (highlight mingguan)</li>
+        <li>✅ Mini dashboard LinkedIn (highlight mingguan)</li>
       </ul>
-      <div class="shot" data-img="assets/preview-learning.png" title="Click to preview">
-        <img src="assets/preview-learning.png" alt="Preview Learning Dashboard (screenshot placeholder)">
-      </div>
+
+      <h3 style="margin:8px 0 0">Aim (hasil yang dituju)</h3>
+      <ul>
+        <li>🎯 Konsisten 6–8 minggu pada satu track</li>
+        <li>🎯 Punya 1 artefak portfolio + ringkasan LinkedIn</li>
+        <li>🎯 Bukti progres (JSON) untuk mentor/reviewer</li>
+      </ul>
+
       <div class="cta">
+        <a class="btn ghost"   href="learningdashboard.html" target="_blank" rel="noopener">Preview web</a>
         <a class="btn primary" href="https://trakteer.id/USERNAME/tipe/learning-dashboard" target="_blank" rel="noopener">Beli via Trakteer</a>
-        <a class="btn ghost" href="#demo-learning">Lihat Demo</a>
       </div>
     </article>
 
-    <!-- Card 2 -->
+    <!-- CARD 2: Productivity -->
     <article class="card">
       <div class="title">
         <h2>💼 Productivity, Web, Kit Template</h2>
-        <span class="chip pill2">Professional</span>
+        <span class="pill pill2">Professional</span>
       </div>
-      <p class="muted">Buat profesional track kerja & habit — bisa di-mix untuk mini tim.</p>
-      <ul class="features">
+      <p class="muted">"Buat profesional track kerja & habit."</p>
+
+      <div class="shot">
+        <div class="bar"><i></i><i></i><i></i><span>productivity.html</span></div>
+        <img src="assets/preview-productivity.png" alt="Preview Productivity Kit">
+      </div>
+
+      <h3 style="margin:6px 0 0">What’s inside</h3>
+      <ul>
         <li>✅ Task template</li>
         <li>✅ Task checklist (daily/weekly)</li>
         <li>✅ KPI mini-dashboard</li>
         <li>✅ Export JSON progress</li>
         <li>✅ Bisa di-custom untuk tim kecil</li>
       </ul>
-      <div class="shot" data-img="assets/preview-productivity.png" title="Click to preview">
-        <img src="assets/preview-productivity.png" alt="Preview Productivity Web Kit (screenshot placeholder)">
-      </div>
+
+      <h3 style="margin:8px 0 0">Aim (hasil yang dituju)</h3>
+      <ul>
+        <li>🎯 Ritme kerja stabil (habit tracker weekly)</li>
+        <li>🎯 1–2 KPI yang terlihat (velocity & consistency)</li>
+        <li>🎯 Bahan bukti untuk appraisal atau freelance</li>
+      </ul>
+
       <div class="cta">
+        <a class="btn ghost"   href="productivity.html" target="_blank" rel="noopener">Preview web</a>
         <a class="btn primary" href="https://trakteer.id/USERNAME/tipe/productivity-kit" target="_blank" rel="noopener">Beli via Trakteer</a>
-        <a class="btn ghost" href="#demo-productivity">Lihat Demo</a>
       </div>
     </article>
 
-    <!-- Card 3 -->
+    <!-- CARD 3: Migration -->
     <article class="card">
       <div class="title">
         <h2>🌍 Migration Planner</h2>
-        <span class="chip pill3">Study / Work Abroad</span>
+        <span class="pill pill3">Study / Work Abroad</span>
       </div>
-      <p class="muted">Checklist kuliah/kerja luar negeri — from plan sampai budgeting.</p>
-      <ul class="features">
+      <p class="muted">"Checklist kuliah/kerja luar negeri."</p>
+
+      <div class="shot">
+        <div class="bar"><i></i><i></i><i></i><span>migration.html</span></div>
+        <img src="assets/preview-migration.png" alt="Preview Migration Planner">
+      </div>
+
+      <h3 style="margin:6px 0 0">What’s inside</h3>
+      <ul>
         <li>✅ Pilih path: Masters / Job / PhD</li>
         <li>✅ News on the country untuk perbandingan</li>
         <li>✅ Auto-suggest dokumen (GRE, IELTS, SOP, CV)</li>
         <li>✅ Progress checklist (CV, LOR, SOP, budget)</li>
         <li>✅ Tips funding & visa + estimasi harga total persiapan</li>
       </ul>
-      <div class="shot" data-img="assets/preview-migration.png" title="Click to preview">
-        <img src="assets/preview-migration.png" alt="Preview Migration Planner (screenshot placeholder)">
-      </div>
+
+      <h3 style="margin:8px 0 0">Aim (hasil yang dituju)</h3>
+      <ul>
+        <li>🎯 Roadmap rapi 3–6 bulan (milestones & biaya)</li>
+        <li>🎯 Paket aplikasi lengkap (SOP/LOR/score)</li>
+        <li>🎯 Perbandingan negara/program yang objektif</li>
+      </ul>
+
       <div class="cta">
+        <a class="btn ghost"   href="migration.html" target="_blank" rel="noopener">Preview web</a>
         <a class="btn primary" href="https://trakteer.id/USERNAME/tipe/migration-planner" target="_blank" rel="noopener">Beli via Trakteer</a>
-        <a class="btn ghost" href="#demo-migration">Lihat Demo</a>
       </div>
     </article>
 
   </div>
 
-  <footer>
-    <p>Semua template berjalan 100% di browser (HTML/CSS/JS). Tanpa login, data disimpan lokal (localStorage). Bisa di-deploy ke GitLab/GitHub Pages.</p>
+  <footer class="wrap">
+    <div class="card" style="margin-top:16px">
+      <h3 style="margin:0 0 8px">FAQ singkat</h3>
+      <details><summary>Data disimpan di mana?</summary><p class="muted">Semua berjalan 100% di browser (localStorage). Bisa export JSON.</p></details>
+      <details><summary>Bisa custom?</summary><p class="muted">Bisa. Edit teks/daftar modul di HTML atau duplikasi card.</p></details>
+      <details><summary>Butuh server?</summary><p class="muted">Tidak. Cukup host di GitLab/GitHub Pages.</p></details>
+    </div>
   </footer>
 </main>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <button class="btn ghost close" aria-label="Close">✕</button>
-  <img id="lightboxImg" src="" alt="Preview">
-</div>
-
-<script>
-  // Lightbox untuk screenshot
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightboxImg');
-  document.querySelectorAll('.shot').forEach(s=>{
-    s.addEventListener('click',()=>{
-      const src = s.dataset.img || s.querySelector('img')?.src;
-      if(!src) return;
-      lbImg.src = src;
-      lb.classList.add('open');
-    });
-  });
-  lb.addEventListener('click', (e)=>{ if(e.target===lb || e.target.classList.contains('close')) lb.classList.remove('open'); });
-
-  // Optional: anchor “demo” bisa diarahkan ke live demo kamu
-  document.querySelectorAll('a[href^="#demo"]').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      e.preventDefault();
-      alert('Demo link belum diset. Ganti href tombol ini ke URL demo (GitLab/GitHub Pages).');
-    });
-  });
-</script>
 </body>
 </html>
